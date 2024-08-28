@@ -103,47 +103,49 @@ pub mod windows {
 
                     match new_object.cell_type {
                         1 => {
-                            //red
+                            // red - Aggressive type, hunts for food, but can have alliances
                             new_object.color = vec3(225.0, 0.0, 0.0);
-                            // new_object.friends = vec![3, 5,2,4];
-                            // new_object.foods = vec![4];
-                            new_object.predators = vec![1,2,3,4,5];
+                            new_object.friends = vec![2, 4];  // Allies with blue and soil cells
+                            new_object.foods = vec![5];       // Hunts food cells
+                            new_object.predators = vec![3];   // Preyed upon by white cells
                         }
                         2 => {
-                            //blue
+                            // blue - Defensive type, avoids conflict, gathers resources
                             new_object.color = vec3(0.0, 225.0, 0.0);
-                            // new_object.friends = vec![5,2];
-                            // new_object.foods = vec![4];
-                            new_object.predators = vec![1,2,3,4,5];
+                            new_object.friends = vec![4, 1];  // Allies with soil and red cells
+                            new_object.foods = vec![5];       // Gathers food cells
+                            new_object.predators = vec![3,2];   // Preyed upon by white cells
                         }
                         3 => {
-                            //white
+                            // white - Dominant type, aggressive, preys on others
                             new_object.color = vec3(0.0, 0.0, 255.0);
-                            // new_object.friends = vec![4,3];
-                            // new_object.foods = vec![5];
-                            new_object.predators = vec![1,2,3,4,5];
+                            new_object.friends = vec![3, 5];  // Allies with its own kind and food cells
+                            new_object.foods = vec![1, 2];    // Preys on red and blue cells
+                            new_object.predators = vec![4];   // Soil cells can neutralize it
                         }
                         4 => {
-                            //soil
+                            // soil - Neutral type, supports others, but can be defensive
                             new_object.color = vec3(0.0, 225.0, 255.0);
-                            // new_object.friends = vec![2,1,3, 5,4];
-                            // new_object.foods = vec![4];
-                            new_object.predators = vec![1,2,3,4,5];
+                            new_object.friends = vec![1, 2, 4];  // Allies with red, blue, and its own kind
+                            new_object.foods = vec![3];          // Can neutralize white cells
+                            new_object.predators = vec![5];      // Food cells can be invasive
                         }
                         5 => {
-                            //food
+                            // food - Essential resource, tries to survive, invasive tendencies
                             new_object.color = vec3(255.0, 225.0, 0.0);
-                            new_object.predators = vec![1,2,3,4,5];
-                            // new_object.friends = vec![3, 1,5];
-                            // new_object.foods = vec![4];
+                            new_object.friends = vec![3, 5];  // Allies with white cells and its own kind
+                            new_object.foods = vec![2];       // Competes with blue cells
+                            new_object.predators = vec![1, 4];  // Preyed upon by red and soil cells
                         }
                         _ => {
+                            // default - Unknown type, neutral behavior
                             new_object.color = vec3(255.0, 255.0, 255.0);
                         }
                     }
+                    
                     new_object.position = vec2(
-                        rand::random::<f32>() * 0.8 + 0.1, // random x between 0.1 and 0.9
-                        rand::random::<f32>() * 0.8 + 0.1, // random y between 0.1 and 0.9
+                        rand::random::<f32>() * 0.8 - 0.1, // random x between 0.1 and 0.9
+                        rand::random::<f32>() * 0.8 - 0.1, // random y between 0.1 and 0.9
                     );
                     self.objects.push(new_object);
                 }
@@ -173,28 +175,6 @@ pub mod windows {
             // Handle collisions between circles
             handle_collisions(&mut self.objects);
         }
-
-        // fn handle_border_collision(&mut self, object: &mut Circle, window_width: f32, window_height: f32) {
-        //     let restitution = 0.8; // Coefficient of restitution for bouncing effect
-
-        //     // Check for collision with the left or right window borders
-        //     if object.position.x - object.radius < 0.0 {
-        //         object.position.x = object.radius;
-        //         object.velocity.x = -object.velocity.x * restitution;
-        //     } else if object.position.x + object.radius > window_width {
-        //         object.position.x = window_width - object.radius;
-        //         object.velocity.x = -object.velocity.x * restitution;
-        //     }
-
-        //     // Check for collision with the top or bottom window borders
-        //     if object.position.y - object.radius < 0.0 {
-        //         object.position.y = object.radius;
-        //         object.velocity.y = -object.velocity.y * restitution;
-        //     } else if object.position.y + object.radius > window_height {
-        //         object.position.y = window_height - object.radius;
-        //         object.velocity.y = -object.velocity.y * restitution;
-        //     }
-        // }
     
     }
 

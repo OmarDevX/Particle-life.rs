@@ -1,0 +1,1 @@
+std::iter::Cloned<std::iter::Filter<std::iter::Filter<std::slice::Iter<'_, i32>, {closure@src/window_manager/window_manager.rs:140:33: 140:38}>, {closure@src/window_manager/window_manager.rs:141:33: 141:38}>>

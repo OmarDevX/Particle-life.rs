@@ -1,0 +1,1 @@
+std::iter::Filter<std::iter::Filter<std::slice::Iter<'_, i32>, {closure@src/window_manager/window_manager.rs:128:37: 128:42}>, {closure@src/window_manager/window_manager.rs:129:37: 129:42}>
